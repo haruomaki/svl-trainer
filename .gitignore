@@ -2,6 +2,7 @@
 /server/venv/
 __pycache__/
 *.egg-info/
+*.sqlite3
 
 # クライアント
 /client/node_modules/
