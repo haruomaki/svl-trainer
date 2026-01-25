@@ -1,29 +1,44 @@
 import { useState } from 'react'
 import './App.css'
 
+type Word = {
+  en: string
+  ja: string
+}
+
+const words: Word[] = [
+  { en: 'apple', ja: 'りんご' },
+  { en: 'run', ja: '走る' },
+  { en: 'book', ja: '本' },
+]
+
 export default function App() {
-  const [count, setCount] = useState(1);
+  // 今出題している単語の index
+  const [index, setIndex] = useState(0)
 
-  const handleDirect = () => {
-    setCount(count + count); // 1回目: countは1 → 1+1=2
-    setCount(count + count); // 2回目: 同じくcountは1 → 2
-    setCount(count + count); // 3回目: 同じくcountは1 → 2
-    // 結果、countは2になる（8にはならない）
-  };
+  // 日本語を表示するかどうか
+  const [showAnswer, setShowAnswer] = useState(false)
 
-  const handleUpdater = () => {
-    setCount(c => c + c); // 1 → 2
-    setCount(c => c + c); // 2 → 4
-    setCount(c => c + c); // 4 → 8
-    // 結果、countは8になる
-  };
+  const current = words[index]
+
+  function nextWord() {
+    setIndex(i => (i + 1) % words.length)
+    setShowAnswer(false)
+  }
 
   return (
-    <div>
-      <h1>Count: {count}</h1>
-      <button onClick={handleDirect}>直接更新（count + count）を3回</button>
-      <br />
-      <button onClick={handleUpdater}>更新関数（c =&gt; c + c）を3回</button>
+    <div className="card">
+      <h2>{current.en}</h2>
+
+      {showAnswer && <p>{current.ja}</p>}
+
+      <button onClick={() => setShowAnswer(true)}>
+        答えを見る
+      </button>
+
+      <button onClick={nextWord}>
+        次の単語
+      </button>
     </div>
-  );
+  )
 }
