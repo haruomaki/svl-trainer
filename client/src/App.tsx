@@ -1,9 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 type Word = {
   en: string
   ja: string
+}
+
+type LearningStatus = 'new' | 'correct' | 'wrong'
+
+type WordStatus = {
+  word_id: string
+  learning_status: LearningStatus
+  user_flag: string | null
 }
 
 const words: Word[] = [
@@ -13,13 +21,35 @@ const words: Word[] = [
 ]
 
 export default function App() {
-  // 今出題している単語の index
   const [index, setIndex] = useState(0)
-
-  // 日本語を表示するかどうか
   const [showAnswer, setShowAnswer] = useState(false)
+  const [wordStatus, setWordStatus] = useState<WordStatus | null>(null)
 
   const current = words[index]
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/word-status/${current.en}`)
+      .then(res => res.json())
+      .then((data: WordStatus) => {
+        setWordStatus(data)
+      })
+  }, [current.en])
+
+  function saveStatus(status: LearningStatus) {
+    const payload: WordStatus = {
+      word_id: current.en,
+      learning_status: status,
+      user_flag: wordStatus?.user_flag ?? null,
+    }
+
+    fetch('http://127.0.0.1:8000/word-status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).then(() => {
+      setWordStatus(payload)
+    })
+  }
 
   function nextWord() {
     setIndex(i => (i + 1) % words.length)
@@ -32,8 +62,18 @@ export default function App() {
 
       {showAnswer && <p>{current.ja}</p>}
 
+      <p>状態: {wordStatus?.learning_status}</p>
+
       <button onClick={() => setShowAnswer(true)}>
         答えを見る
+      </button>
+
+      <button onClick={() => saveStatus('correct')}>
+        正解
+      </button>
+
+      <button onClick={() => saveStatus('wrong')}>
+        不正解
       </button>
 
       <button onClick={nextWord}>
