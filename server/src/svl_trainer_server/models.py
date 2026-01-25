@@ -3,8 +3,10 @@
 # データベースのテーブル定義
 # =========================
 
-from sqlalchemy import Column, String
-from svl_trainer_server.db import Base
+from typing import Optional
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
+from svl_trainer_server.db import Base, engine
 
 
 class WordStatusModel(Base):
@@ -15,10 +17,25 @@ class WordStatusModel(Base):
     __tablename__ = "word_status"
 
     # 単語ID（主キー）
-    word_id = Column(String, primary_key=True, index=True)
+    word_id: Mapped[str] = mapped_column(
+        String,
+        primary_key=True,
+        index=True,
+    )
 
     # 学習状態: new / correct / incorrect など
-    learning_status = Column(String, nullable=False)
+    learning_status: Mapped[str] = mapped_column(
+        String,
+        nullable=False,
+    )
 
     # ユーザーが任意で付けるフラグ（1つ）
-    user_flag = Column(String, nullable=True)
+    user_flag: Mapped[Optional[str]] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+
+# 初回起動時にテーブルを自動生成
+print("データベースをロード…")
+WordStatusModel.metadata.create_all(bind=engine)

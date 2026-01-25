@@ -1,15 +1,8 @@
-# 初回起動時にテーブルを自動生成
-from svl_trainer_server.db import engine
-from svl_trainer_server.models import WordStatusModel
-
-WordStatusModel.metadata.create_all(bind=engine)
-
-
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from svl_trainer_server.db import SessionLocal
+from svl_trainer_server.db import get_db
 from svl_trainer_server.models import WordStatusModel
 from svl_trainer_server.schemas import WordStatus
 
@@ -22,14 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @app.post("/word-status")
