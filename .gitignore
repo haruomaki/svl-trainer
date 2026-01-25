@@ -1,5 +1,7 @@
 # サーバ
 /server/venv/
+__pycache__/
+*.egg-info/
 
 # クライアント
 /client/node_modules/
