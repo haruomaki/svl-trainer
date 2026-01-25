@@ -13,5 +13,15 @@
 			"name": "Client (React Frontend)"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.exclude": {
+			// サーバ
+			"venv": true,
+			// クライアント
+			"node_modules": true,
+			"package-lock.json": true,
+			"tsconfig*.json": true,
+			"*.config.{j,t}s": true,
+		}
+	}
 }
