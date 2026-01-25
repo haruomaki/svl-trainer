@@ -1,2 +1,5 @@
+# サーバ
+/server/venv/
+
 # クライアント
 /client/node_modules/

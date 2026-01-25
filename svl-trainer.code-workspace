@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "Root (Documentation & Configs)"
+		},
+		{
+			"path": "server",
+			"name": "Server (Python Backend)"
+		},
+		{
+			"path": "client",
+			"name": "Client (React Frontend)"
+		}
+	],
+	"settings": {}
+}
