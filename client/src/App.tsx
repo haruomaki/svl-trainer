@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+// 環境変数でAPIベースURLを定義
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.haruomaki.jp';
+
 type Word = {
   en: string
   ja: string
@@ -28,7 +31,7 @@ export default function App() {
   const current = words[index]
 
   useEffect(() => {
-    fetch(`/api/svl-trainer/word-status/${current.en}`)
+    fetch(`${API_BASE_URL}/svl-trainer/word-status/${current.en}`)
       .then(res => res.json())
       .then((data: WordStatus) => {
         setWordStatus(data)
@@ -42,7 +45,7 @@ export default function App() {
       user_flag: wordStatus?.user_flag ?? null,
     }
 
-    fetch('/api/svl-trainer/word-status', {
+    fetch(`${API_BASE_URL}/svl-trainer/word-status`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
