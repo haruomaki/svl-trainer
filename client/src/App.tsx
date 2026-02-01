@@ -28,7 +28,7 @@ export default function App() {
   const current = words[index]
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/word-status/${current.en}`)
+    fetch(`/api/svl-trainer/word-status/${current.en}`)
       .then(res => res.json())
       .then((data: WordStatus) => {
         setWordStatus(data)
@@ -42,7 +42,7 @@ export default function App() {
       user_flag: wordStatus?.user_flag ?? null,
     }
 
-    fetch('http://127.0.0.1:8000/word-status', {
+    fetch('/api/svl-trainer/word-status', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
