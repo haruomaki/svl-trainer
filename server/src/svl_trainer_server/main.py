@@ -6,6 +6,8 @@ from svl_trainer_server.db import get_db
 from svl_trainer_server.models import WordStatusModel
 from svl_trainer_server.schemas import WordStatus
 
+from svl_trainer_server.svl import svl_sample
+
 app = FastAPI()
 
 app.add_middleware(
@@ -52,6 +54,11 @@ def get_word_status(word_id: str, db: Session = Depends(get_db)):
         "learning_status": record.learning_status,
         "user_flag": record.user_flag,
     }
+
+
+@app.get("/sample")
+def sample(level: int, k: int = 10, db: Session = Depends(get_db)):
+    return svl_sample(level, k)
 
 
 @app.get("/.well-known/appspecific/com.chrome.devtools.json")

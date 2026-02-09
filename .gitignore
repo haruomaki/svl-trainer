@@ -3,6 +3,7 @@
 __pycache__/
 *.egg-info/
 *.sqlite3
+svl_full.csv
 
 # クライアント
 /client/node_modules/
