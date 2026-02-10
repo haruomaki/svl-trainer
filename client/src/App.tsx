@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import type { SceneProps } from './types';
+import { Mondai } from './mondai';
 
 // 環境変数でAPIベースURLを定義
 const API = import.meta.env.VITE_API || 'https://api.haruomaki.jp/svl-trainer';
@@ -24,6 +26,16 @@ const words: Word[] = [
 ]
 
 export default function App() {
+  const [scene, setScene] = useState<"title" | "mondai">("title")
+
+  if (scene == "title") {
+    return <Title setScene={setScene} />
+  } else if (scene == "mondai") {
+    return <Mondai setScene={setScene} />
+  }
+}
+
+export function Title({ setScene }: SceneProps) {
   const [index, setIndex] = useState(0)
   const [showAnswer, setShowAnswer] = useState(false)
   const [wordStatus, setWordStatus] = useState<WordStatus | null>(null)
@@ -81,6 +93,10 @@ export default function App() {
 
       <button onClick={nextWord}>
         次の単語
+      </button>
+
+      <button onClick={() => setScene("mondai")}>
+        シーンチェンジ
       </button>
     </div>
   )

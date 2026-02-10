@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-cd src/svl_trainer_server
-uvicorn main:app --reload --port 12000
+root=$(realpath $(dirname $0))
+cd "$root/src/svl_trainer_server"
+"$root/venv/bin/uvicorn" main:app --reload --port 12000
