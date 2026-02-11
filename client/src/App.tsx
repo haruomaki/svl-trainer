@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css'
 import { Mondai } from './mondai';
 
-// 環境変数でAPIベースURLを定義
-const API = import.meta.env.VITE_API || 'https://api.haruomaki.jp/svl-trainer';
+// 実行環境に合わせてAPIベースURLを取得
+const API = import.meta.env.VITE_API_URL;
 
 type Word = {
   en: string
