@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-VITE_API=http://localhost:12000 npm run dev
+cd "$(dirname $0)"
+npm run dev
