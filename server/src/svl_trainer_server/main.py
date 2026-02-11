@@ -6,7 +6,7 @@ from svl_trainer_server.db import get_db
 from svl_trainer_server.models import WordStatusModel
 from svl_trainer_server.schemas import WordStatus
 
-from svl_trainer_server.svl import svl_sample
+from svl_trainer_server.svl import svl_sample, svl_questions
 
 app = FastAPI()
 
@@ -59,6 +59,11 @@ def get_word_status(word_id: str, db: Session = Depends(get_db)):
 @app.get("/sample")
 def sample(level: int, k: int = 10, db: Session = Depends(get_db)):
     return svl_sample(level, k)
+
+
+@app.get("/questions")
+def questions(level: int, k: int = 10, db: Session = Depends(get_db)):
+    return svl_questions(level, k)
 
 
 @app.get("/.well-known/appspecific/com.chrome.devtools.json")
