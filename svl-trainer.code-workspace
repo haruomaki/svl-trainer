@@ -23,7 +23,7 @@
 			"node_modules": true,
 			"package-lock.json": true,
 			"tsconfig*.json": true,
-			"*.config.{j,t}s": true,
+			"*.config.js": true,
 		}
 	}
 }

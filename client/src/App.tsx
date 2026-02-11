@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css'
-import type { SceneProps } from './types';
 import { Mondai } from './mondai';
 
 // 環境変数でAPIベースURLを定義
@@ -26,16 +26,17 @@ const words: Word[] = [
 ]
 
 export default function App() {
-  const [scene, setScene] = useState<"title" | "mondai">("title")
-
-  if (scene == "title") {
-    return <Title setScene={setScene} />
-  } else if (scene == "mondai") {
-    return <Mondai setScene={setScene} />
-  }
+  return (
+    <Router basename={import.meta.env.BASE_URL}>
+      <Routes>
+        <Route path="/" element={<Title />} />
+        <Route path="/quiz" element={<Mondai />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export function Title({ setScene }: SceneProps) {
+export function Title() {
   const [index, setIndex] = useState(0)
   const [showAnswer, setShowAnswer] = useState(false)
   const [wordStatus, setWordStatus] = useState<WordStatus | null>(null)
@@ -95,9 +96,11 @@ export function Title({ setScene }: SceneProps) {
         次の単語
       </button>
 
-      <button onClick={() => setScene("mondai")}>
-        シーンチェンジ
-      </button>
+      <Link to="/quiz">
+        <button>
+          シーンチェンジ
+        </button>
+      </Link>
     </div>
   )
 }

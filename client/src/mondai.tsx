@@ -1,13 +1,15 @@
-import type { SceneProps } from "./types";
+import { Link } from 'react-router-dom';
 
-export function Mondai({ setScene }: SceneProps) {
+export function Mondai() {
     return (
         <div>
             <p>こんにちは</p>
 
-            <button onClick={() => setScene("title")}>
-                戻る
-            </button>
+            <Link to="/">
+                <button>
+                    戻る
+                </button>
+            </Link>
         </div>
     )
 }
