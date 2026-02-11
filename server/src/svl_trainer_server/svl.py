@@ -1,53 +1,49 @@
 import csv
 import random
+from collections import defaultdict
+from typing import Any
+from fastapi import HTTPException
+
+
+CAND_N = 4
+
 
 # 新SVL12000全体を読み込む
-_svl: list[dict] = list()
+# レベル別に事前インデックス化
+_svl_by_level: defaultdict[int, list[dict[str, Any]]] = defaultdict(list)
 with open("svl_full.csv") as f:
     reader = csv.reader(f)
     next(reader)  # カラム名を飛ばす
-    for i, line in enumerate(reader):
-        _svl.append({"word": line[0], "level": int(line[1]), "meaning": line[2]})
+    for wd, lv, mg in reader:
+        lv = int(lv)
+        _svl_by_level[lv].append({"word": wd, "level": lv, "meaning": mg})
+# _svl: list[dict[str, Any]] = list(chain.from_iterable(_svl_by_level))  # flatten
 
 
 def svl_sample(level: int, k: int = 10) -> list[dict[str, str]]:
-    same_level = [e for e in _svl if e["level"] == level]
-    return random.sample(same_level, k)
+    return random.sample(_svl_by_level[level], k)
 
 
-def svl_questions(level: int, k: int = 10) -> list[dict[str, str]]:
+def svl_questions(level: int, k: int = 10) -> list[dict[str, Any]]:
     if k > 100:
-        return "出題数が多すぎます"
+        raise HTTPException(status_code=400, detail="出題数が多すぎます")
 
-    same_level = [e for e in _svl if e["level"] == level]
+    if len(_svl_by_level[level]) < CAND_N:
+        raise HTTPException(status_code=500, detail="問題数が不足しています")
 
     ret = []
     for _ in range(k):
-        w0 = random.choice(same_level)
-        w1 = random.choice(same_level)
-        w2 = random.choice(same_level)
-        w3 = random.choice(same_level)
-        word = w0["word"]
-        choices = [
-            (0, w0["meaning"]),
-            (1, w1["meaning"]),
-            (2, w2["meaning"]),
-            (3, w3["meaning"]),
-        ]
-        random.shuffle(choices)
+        candidates = random.sample(_svl_by_level[level], CAND_N)
 
-        # 正解番号を探す
-        correct = 0
-        for i, ch in enumerate(choices):
-            if ch[0] == 0:
-                correct = i
-                break
+        # シャッフル後のインデックス順
+        indices = [i for i in range(CAND_N)]
+        random.shuffle(indices)
 
-        ret += [
+        ret.append(
             {
-                "word": word,
-                "choices": [ch[1] for ch in choices],
-                "correct": correct,
+                "word": candidates[0]["word"],
+                "choices": [candidates[i]["meaning"] for i in indices],
+                "correct": indices.index(0),
             }
-        ]
+        )
     return ret

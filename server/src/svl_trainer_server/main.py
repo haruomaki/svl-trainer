@@ -19,6 +19,11 @@ app.add_middleware(
 )
 
 
+@app.get("/ping")
+async def ping():
+    return {"ping": "pong"}
+
+
 @app.post("/word-status")
 def save_word_status(status: WordStatus, db: Session = Depends(get_db)):
     record = db.get(WordStatusModel, status.word_id)
@@ -58,11 +63,13 @@ def get_word_status(word_id: str, db: Session = Depends(get_db)):
 
 @app.get("/sample")
 def sample(level: int, k: int = 10, db: Session = Depends(get_db)):
+    """単語データベースからランダムに選びます"""
     return svl_sample(level, k)
 
 
 @app.get("/questions")
 def questions(level: int, k: int = 10, db: Session = Depends(get_db)):
+    """4択クイズを取得します"""
     return svl_questions(level, k)
 
 
