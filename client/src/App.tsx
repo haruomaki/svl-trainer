@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css'
-import { Mondai } from './mondai';
+import { Quiz } from './Quiz';
 
 // 実行環境に合わせてAPIベースURLを取得
 const API = import.meta.env.VITE_API_URL;
@@ -30,7 +30,7 @@ export default function App() {
     <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Title />} />
-        <Route path="/quiz" element={<Mondai />} />
+        <Route path="/quiz" element={<Quiz />} />
       </Routes>
     </Router>
   );

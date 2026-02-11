@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export function Mondai() {
+export function Quiz() {
     return (
         <div>
             <p>こんにちは</p>
