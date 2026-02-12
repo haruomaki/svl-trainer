@@ -28,35 +28,33 @@ export function Quiz() {
     }
 
     const currentQ = questions[currentIndex];
-    return (
-        <div>
-            <h3>
-                問題 {currentIndex + 1} / {questions.length}
-            </h3>
+    return (<>
+        <h3>
+            問題 {currentIndex + 1} / {questions.length}
+        </h3>
 
-            <h2>{currentQ.word}</h2>
+        <h2>{currentQ.word}</h2>
 
-            <ul style={{ listStyle: "none", padding: 0 }}>
-                {currentQ.choices.map((choice, i) => (
-                    <li key={i}>
-                        <button style={{ margin: "8px 0" }}>
-                            {choice}
-                        </button>
-                    </li>
-                ))}
-            </ul>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+            {currentQ.choices.map((choice, i) => (
+                <li key={i}>
+                    <button style={{ margin: "8px 0" }}>
+                        {choice}
+                    </button>
+                </li>
+            ))}
+        </ul>
 
-            <button
-                onClick={() => {
-                    setCurrentIndex((currentIndex + 1) % questions.length);
-                }}
-            >
-                次へ
-            </button>
+        <button
+            onClick={() => {
+                setCurrentIndex((currentIndex + 1) % questions.length);
+            }}
+        >
+            次へ
+        </button>
 
-            <Link to="/">
-                <button className="back-button">戻る</button>
-            </Link>
-        </div>
-    );
+        <Link to="/">
+            <button className="back-button">戻る</button>
+        </Link>
+    </>);
 }
