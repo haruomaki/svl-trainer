@@ -1,0 +1,62 @@
+/* 4つの選択肢 */
+li {
+    /* liのボーダーは消し、buttonで埋め尽くされるようにする */
+    padding: 0;
+    background: none;
+    border: none;
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+        padding: 15px 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: none;
+        text-align: left;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+            /* ホバーで色変更 */
+            background-color: #f5f5f5;
+            border-color: #999;
+        }
+
+        &:focus {
+            outline: 2px solid #0066cc;
+            outline-offset: -2px;
+        }
+
+        /* 正解の選択肢 */
+        &.correct {
+            background-color: rgb(115, 211, 115);
+            color: white;
+        }
+
+        /* 間違った選択肢 */
+        &.wrong {
+            background-color: rgb(231, 97, 108);
+            color: white;
+        }
+    }
+}
+
+/* 「戻る」ボタン */
+.back-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+
+    /* 他の要素より前に */
+    z-index: 100;
+
+    &:hover {
+        background-color: lightgray;
+    }
+}

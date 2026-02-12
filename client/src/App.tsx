@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css'
 import { Quiz } from './Quiz';
-
-// 実行環境に合わせてAPIベースURLを取得
-const API = import.meta.env.VITE_API_URL;
+import { api } from './API';
 
 type Word = {
   en: string
@@ -44,7 +42,7 @@ export function Title() {
   const current = words[index]
 
   useEffect(() => {
-    fetch(`${API}/word-status/${current.en}`)
+    api(`/word-status/${current.en}`)
       .then(res => res.json())
       .then((data: WordStatus) => {
         setWordStatus(data)
@@ -58,7 +56,7 @@ export function Title() {
       user_flag: wordStatus?.user_flag ?? null,
     }
 
-    fetch(`${API}/word-status`, {
+    api(`/word-status`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
