@@ -12,6 +12,7 @@ type Question = {
 export function Quiz() {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
     useEffect(() => {
         api(`/questions?level=5&k=3`)
@@ -36,20 +37,31 @@ export function Quiz() {
         <h2>{currentQ.word}</h2>
 
         <ul style={{ listStyle: "none", padding: 0 }}>
-            {currentQ.choices.map((choice, i) => (
-                <li key={i}>
-                    <button style={{ margin: "8px 0" }}>
-                        {choice}
-                    </button>
-                </li>
-            ))}
+            {currentQ.choices.map((choice, i) => {
+                let className = "";
+
+                if (selectedIndex !== null) {
+                    if (i === currentQ.correct) {
+                        className += " correct";
+                    } else if (i === selectedIndex) {
+                        className += " wrong";
+                    }
+                };
+
+                return (
+                    // 一度クリックされると全てのボタンがdisableされ、緑や赤に色付けされる
+                    <li key={i}>
+                        <button className={className} onClick={() => setSelectedIndex(i)} disabled={selectedIndex !== null}>{choice}</button>
+                    </li>
+                )
+            })}
         </ul>
 
-        <button
-            onClick={() => {
-                setCurrentIndex((currentIndex + 1) % questions.length);
-            }}
-        >
+        <button onClick={() => {
+            // 次の問題へ進む
+            setCurrentIndex((currentIndex + 1) % questions.length);
+            setSelectedIndex(null);
+        }}>
             次へ
         </button>
 
