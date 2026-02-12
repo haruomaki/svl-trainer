@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { api } from './API';
 import { useEffect, useState } from 'react';
+import "./Quiz.css";
 
 type Question = {
     word: string;
