@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { api } from './API';
 import { useEffect, useState } from 'react';
 import "./Quiz.css";
@@ -14,14 +14,19 @@ export function Quiz() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+    // クエリパラメータ取得
+    const [searchParams] = useSearchParams();
+    const level = Number(searchParams.get("level") ?? "6");
+    const k = Number(searchParams.get("k") ?? "10");
+
     useEffect(() => {
-        api(`/questions?level=5&k=3`)
+        api(`/questions?level=${level}&k=${k}`)
             .then(res => res.json())
             .then((data: Question[]) => {
                 console.debug(data);
                 setQuestions(data);
             });
-    }, []);
+    }, [level, k]);
 
     // 問題の取得に手こずっている場合
     if (questions.length === 0) {
