@@ -43,6 +43,9 @@ export function Title() {
   const current = words[index]
 
   useEffect(() => {
+    // タイトルの設定
+    document.title = "SVL Trainer";
+
     api(`/word-status/${current.en}`)
       .then(res => res.json())
       .then((data: WordStatus) => {

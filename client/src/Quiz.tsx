@@ -20,6 +20,10 @@ export function Quiz() {
     const k = Number(searchParams.get("k") ?? "10");
 
     useEffect(() => {
+        // タイトルの設定
+        document.title = `レベル${level} - SVL Trainer`;
+
+        // 問題の取得
         api(`/questions?level=${level}&k=${k}`)
             .then(res => res.json())
             .then((data: Question[]) => {
