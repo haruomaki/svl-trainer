@@ -10,6 +10,7 @@ type Question = {
 };
 
 export function Quiz() {
+    const [reloadCount, setReloadCount] = useState(0);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -29,8 +30,10 @@ export function Quiz() {
             .then((data: Question[]) => {
                 console.debug(data);
                 setQuestions(data);
+                setCurrentIndex(0);
+                setSelectedIndex(null);
             });
-    }, [level, k]);
+    }, [reloadCount, level, k]);
 
     // 問題の取得に手こずっている場合
     if (questions.length === 0) {
@@ -66,13 +69,18 @@ export function Quiz() {
             })}
         </ul>
 
-        <button onClick={() => {
-            // 次の問題へ進む
-            setCurrentIndex((currentIndex + 1) % questions.length);
-            setSelectedIndex(null);
-        }}>
-            次へ
-        </button>
+        {(currentIndex < questions.length - 1) ?
+            <button onClick={() => {
+                // 次の問題へ進む
+                setCurrentIndex(currentIndex + 1);
+                setSelectedIndex(null);
+            }}>
+                次へ
+            </button> :
+            <button onClick={() => setReloadCount(c => c + 1)}>
+                次の10問へ
+            </button>
+        }
 
         <Link to="/">
             <button className="back-button">戻る</button>
