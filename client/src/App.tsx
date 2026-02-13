@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import './App.css'
 import { Quiz } from './Quiz';
 import { api } from './API';
@@ -29,6 +29,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Title />} />
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
@@ -101,4 +102,29 @@ export function Title() {
       </Link>
     </div>
   )
+}
+
+/**
+ * 無効なパスを指定された場合に表示する画面
+ */
+function NotFound() {
+  const location = useLocation();
+
+  return (
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <h2>ページが見つかりません</h2>
+      <p>
+        「{location.pathname}」というページは存在しません。
+      </p>
+      <p>
+        URLを確認するか、トップページからやり直してください。
+      </p>
+
+      <div style={{ marginTop: "1.5rem" }}>
+        <Link to="/">
+          <button>トップへ戻る</button>
+        </Link>
+      </div>
+    </div>
+  );
 }
