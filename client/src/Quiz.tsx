@@ -69,15 +69,23 @@ export function Quiz() {
             })}
         </ul>
 
+        <button className="navi-button" onClick={() => {
+            // 前の問題に戻る
+            setCurrentIndex(currentIndex - 1);
+            setSelectedIndex(null);
+        }} disabled={currentIndex == 0}>
+            前へ
+        </button>
+
         {(currentIndex < questions.length - 1) ?
-            <button onClick={() => {
+            <button className="navi-button" onClick={() => {
                 // 次の問題へ進む
                 setCurrentIndex(currentIndex + 1);
                 setSelectedIndex(null);
             }}>
                 次へ
             </button> :
-            <button onClick={() => setReloadCount(c => c + 1)}>
+            <button className="navi-button" onClick={() => setReloadCount(c => c + 1)}>
                 次の10問へ
             </button>
         }

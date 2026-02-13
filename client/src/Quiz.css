@@ -41,6 +41,12 @@ li {
     }
 }
 
+/* 前へ・次へボタン */
+.navi-button {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
 /* 「戻る」ボタン */
 .back-button {
     position: fixed;
