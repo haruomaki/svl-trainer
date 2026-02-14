@@ -91,34 +91,19 @@ export function Quiz() {
             問題 {currentIndex + 1} / {questions.length}
         </h3>
 
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '15px',
-            margin: '20px 0'
-        }}>
+        <div className='quiz-header'>
             {/* 音声読み上げボタン */}
-            <button
+            <button className='speak-button'
                 onClick={() => {
                     const utterance = new SpeechSynthesisUtterance(currentQ.word);
                     // 日本語で読み上げ（必要に応じて）
                     utterance.lang = 'en-US';
                     speechSynthesis.speak(utterance);
                 }}
-                style={{
-                    fontSize: '24px',
-                    border: 'none',
-                    background: 'none',
-                    cursor: 'pointer',
-                    padding: 0
-                }}
                 title="音声を再生"
-            >
-                🔊
-            </button>
+            >🔊</button>
 
-            <h2>{currentQ.word}</h2>
+            <h2 className='quiz-word'>{currentQ.word}</h2>
 
             {/* 検索ボタン */}
             {/* TODO: 検索URLをユーザが設定できるようにする */}
@@ -126,10 +111,7 @@ export function Quiz() {
                 href={"https://www.google.com/search?q=" + currentQ.word}
                 target="_blank"
                 title={`"${currentQ.word}" をWeb検索`}>
-                <button>
-                    🔍
-                </button>
-            </a>
+                🔍</a>
         </div>
 
         <ul style={{ listStyle: "none", padding: 0 }}>

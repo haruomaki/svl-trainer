@@ -1,3 +1,33 @@
+/* 出題部 */
+.quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+
+    .speak-button {
+        font-size: 24px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .quiz-word {
+        /* TODO: 幅に余裕があれば1emで、余裕がないならその分だけmarginを減らしたい */
+        margin: 0px clamp(0px, 2vw, 1em);
+    }
+
+    .search-button {
+        font-size: 24px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+    }
+}
+
 /* 4つの選択肢 */
 li {
     /* liのボーダーは消し、buttonで埋め尽くされるようにする */
