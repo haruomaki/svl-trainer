@@ -3,10 +3,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    margin: 30px 0;
+    /* 画面が狭まったときも、最低1emはギャップを取る */
+    gap: 1em;
+    max-width: 280px;
+    margin: 30px auto;
 
     .speak-button {
+        margin-right: auto;
         font-size: 24px;
         border: none;
         background: none;
@@ -15,11 +18,11 @@
     }
 
     .quiz-word {
-        /* TODO: 幅に余裕があれば1emで、余裕がないならその分だけmarginを減らしたい */
-        margin: 0px clamp(0px, 2vw, 1em);
+        margin: 0 auto;
     }
 
     .search-button {
+        margin-left: auto;
         font-size: 24px;
         border: none;
         background: none;
@@ -36,6 +39,7 @@ li {
     border: none;
 
     button {
+        min-width: 0;
         width: 100%;
         margin: 5px 0;
         padding: 15px 20px;
