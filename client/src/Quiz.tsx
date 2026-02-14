@@ -57,15 +57,15 @@ export function Quiz() {
 
     // 結果表示画面
     if (currentIndex == questions.length) {
-        return (<>
+        return (<div className='quiz'>
             <h2>結果</h2>
 
             <table>
                 <thead>
                     <tr>
-                        <th>単語</th>
-                        <th>意味</th>
-                        <th>正誤</th>
+                        <th className="col-word">単語</th>
+                        <th className="col-meaning">意味</th>
+                        <th className="col-mark">正誤</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,7 +82,7 @@ export function Quiz() {
             <button className="navi-button" onClick={() => setReloadCount(c => c + 1)}>
                 次の{k}問へ
             </button>
-        </>)
+        </div>)
     }
 
     // 出題画面

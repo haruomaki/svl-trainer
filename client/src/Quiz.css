@@ -87,6 +87,10 @@ li {
     margin-left: 0.5em;
 }
 
+/* ----------------- */
+/* 結果の表 */
+/* ----------------- */
+
 .col-word,
 .col-meaning {
     text-align: left;

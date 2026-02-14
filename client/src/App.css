@@ -72,6 +72,34 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* 一般的な表 */
+table {
+  margin: 20px auto;
+  /* 罫線を消す */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  /* 余白があるだけで見やすくなる */
+}
+
+th {
+  background-color: hsl(220, 50%, 80%);
+  /* ヘッダー行に薄い背景色 */
+}
+
+/* 奇数行（1,3,5行目）に背景色 */
+tr:nth-child(odd) {
+  background-color: hsl(220, 30%, 97%);
+}
+
+/* 偶数行なら even */
+tr:nth-child(even) {
+  background-color: hsl(220, 30%, 91%);
+}
+
 /* 「戻る」ボタン */
 .back-button {
   position: fixed;
