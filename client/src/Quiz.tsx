@@ -10,15 +10,23 @@ type Question = {
 };
 
 export function Quiz() {
-    const [reloadCount, setReloadCount] = useState(0);
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
     // クエリパラメータ取得
     const [searchParams] = useSearchParams();
     const level = Number(searchParams.get("level") ?? "6");
     const k = Number(searchParams.get("k") ?? "10");
+
+    const [reloadCount, setReloadCount] = useState(0);
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [selectedIndices, setSelectedIndices] = useState<(number | null)[]>(new Array(10).fill(null));
+
+    // TODO: 命名変更
+    function updateAnswer(i: number, value: number) {
+        const new_arr = [...selectedIndices];
+        new_arr[i] = value;
+        console.debug("解答を更新", new_arr);
+        setSelectedIndices(new_arr);
+    }
 
     useEffect(() => {
         // タイトルの設定
@@ -31,7 +39,6 @@ export function Quiz() {
                 console.debug(data);
                 setQuestions(data);
                 setCurrentIndex(0);
-                setSelectedIndex(null);
             });
     }, [reloadCount, level, k]);
 
@@ -52,10 +59,10 @@ export function Quiz() {
             {currentQ.choices.map((choice, i) => {
                 let className = "";
 
-                if (selectedIndex !== null) {
+                if (selectedIndices[currentIndex] !== null) {
                     if (i === currentQ.correct) {
                         className += " correct";
-                    } else if (i === selectedIndex) {
+                    } else if (i === selectedIndices[currentIndex]) {
                         className += " wrong";
                     }
                 };
@@ -63,7 +70,7 @@ export function Quiz() {
                 return (
                     // 一度クリックされると全てのボタンがdisableされ、緑や赤に色付けされる
                     <li key={i}>
-                        <button className={className} onClick={() => setSelectedIndex(i)} disabled={selectedIndex !== null}>{choice}</button>
+                        <button className={className} onClick={() => updateAnswer(currentIndex, i)} disabled={selectedIndices[currentIndex] !== null}>{choice}</button>
                     </li>
                 )
             })}
@@ -72,7 +79,6 @@ export function Quiz() {
         <button className="navi-button" onClick={() => {
             // 前の問題に戻る
             setCurrentIndex(currentIndex - 1);
-            setSelectedIndex(null);
         }} disabled={currentIndex == 0}>
             前へ
         </button>
@@ -81,7 +87,6 @@ export function Quiz() {
             <button className="navi-button" onClick={() => {
                 // 次の問題へ進む
                 setCurrentIndex(currentIndex + 1);
-                setSelectedIndex(null);
             }}>
                 次へ
             </button> :
