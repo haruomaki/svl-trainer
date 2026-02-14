@@ -86,7 +86,7 @@ export function Quiz() {
     }
 
     // 出題画面
-    return (<>
+    return (<div className='quiz'>
         <h3>
             問題 {currentIndex + 1} / {questions.length}
         </h3>
@@ -148,5 +148,5 @@ export function Quiz() {
         }}>
             {(currentIndex == questions.length - 1) ? "結果を見る" : "次へ"}
         </button>
-    </>);
+    </div>);
 }

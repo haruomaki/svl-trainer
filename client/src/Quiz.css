@@ -1,8 +1,14 @@
+/* クイズコンテナ */
+.quiz {
+    max-width: 560px;
+    width: 100%;
+}
+
 /* 出題部 */
 .quiz-header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     /* 画面が狭まったときも、最低1emはギャップを取る */
     gap: 1em;
     max-width: 280px;
