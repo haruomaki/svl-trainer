@@ -1,3 +1,42 @@
+/* クイズコンテナ */
+.quiz {
+    max-width: 560px;
+    width: 100%;
+}
+
+/* 出題部 */
+.quiz-header {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* 画面が狭まったときも、最低1emはギャップを取る */
+    gap: 1em;
+    max-width: 280px;
+    margin: 30px auto;
+
+    .speak-button {
+        margin-right: auto;
+        font-size: 24px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .quiz-word {
+        margin: 0 auto;
+    }
+
+    .search-button {
+        margin-left: auto;
+        font-size: 24px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+    }
+}
+
 /* 4つの選択肢 */
 li {
     /* liのボーダーは消し、buttonで埋め尽くされるようにする */
@@ -6,6 +45,7 @@ li {
     border: none;
 
     button {
+        min-width: 0;
         width: 100%;
         margin: 5px 0;
         padding: 15px 20px;
@@ -41,22 +81,17 @@ li {
     }
 }
 
-/* 「戻る」ボタン */
-.back-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 12px 24px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
+/* 前へ・次へボタン */
+.navi-button {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
 
-    /* 他の要素より前に */
-    z-index: 100;
+/* ----------------- */
+/* 結果の表 */
+/* ----------------- */
 
-    &:hover {
-        background-color: lightgray;
-    }
+.col-word,
+.col-meaning {
+    text-align: left;
 }
