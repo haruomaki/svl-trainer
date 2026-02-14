@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { api } from './API';
 import { useEffect, useState } from 'react';
 import "./Quiz.css";
@@ -55,6 +55,37 @@ export function Quiz() {
         return <p>Loading...</p>;
     }
 
+    // 結果表示画面
+    if (currentIndex == questions.length) {
+        return (<>
+            <h2>結果</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>単語</th>
+                        <th>意味</th>
+                        <th>正誤</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {[...Array(k).keys()].map(i => (
+                        <tr key={i}>
+                            <td className="col-word">{questions[i].word}</td>
+                            <td className="col-meaning">{questions[i].choices[questions[i].correct]}</td>
+                            <td className="col-mark">{answers[i] == questions[i].correct ? "〇" : "✖"}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            <button className="navi-button" onClick={() => setReloadCount(c => c + 1)}>
+                次の{k}問へ
+            </button>
+        </>)
+    }
+
+    // 出題画面
     return (<>
         <h3>
             問題 {currentIndex + 1} / {questions.length}
@@ -90,20 +121,11 @@ export function Quiz() {
             前へ
         </button>
 
-        {(currentIndex < questions.length - 1) ?
-            <button className="navi-button" onClick={() => {
-                // 次の問題へ進む
-                setCurrentIndex(currentIndex + 1);
-            }}>
-                次へ
-            </button> :
-            <button className="navi-button" onClick={() => setReloadCount(c => c + 1)}>
-                次の10問へ
-            </button>
-        }
-
-        <Link to="/">
-            <button className="back-button">戻る</button>
-        </Link>
+        <button className="navi-button" onClick={() => {
+            // 次の問題へ進む
+            setCurrentIndex(currentIndex + 1);
+        }}>
+            {(currentIndex == questions.length - 1) ? "結果を見る" : "次へ"}
+        </button>
     </>);
 }

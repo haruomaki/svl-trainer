@@ -28,7 +28,12 @@ export default function App() {
     <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Title />} />
-        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/quiz" element={<>
+          <Quiz />
+          <Link to="/">
+            <button className="back-button">戻る</button>
+          </Link>
+        </>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

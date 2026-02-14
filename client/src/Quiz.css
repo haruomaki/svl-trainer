@@ -47,22 +47,7 @@ li {
     margin-left: 0.5em;
 }
 
-/* 「戻る」ボタン */
-.back-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 12px 24px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-
-    /* 他の要素より前に */
-    z-index: 100;
-
-    &:hover {
-        background-color: lightgray;
-    }
+.col-word,
+.col-meaning {
+    text-align: left;
 }
