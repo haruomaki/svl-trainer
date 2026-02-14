@@ -91,7 +91,46 @@ export function Quiz() {
             問題 {currentIndex + 1} / {questions.length}
         </h3>
 
-        <h2>{currentQ.word}</h2>
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '15px',
+            margin: '20px 0'
+        }}>
+            {/* 音声読み上げボタン */}
+            <button
+                onClick={() => {
+                    const utterance = new SpeechSynthesisUtterance(currentQ.word);
+                    // 日本語で読み上げ（必要に応じて）
+                    utterance.lang = 'en-US';
+                    speechSynthesis.speak(utterance);
+                }}
+                style={{
+                    fontSize: '24px',
+                    border: 'none',
+                    background: 'none',
+                    cursor: 'pointer',
+                    padding: 0
+                }}
+                title="音声を再生"
+            >
+                🔊
+            </button>
+
+            <h2>{currentQ.word}</h2>
+
+            {/* 検索ボタン */}
+            {/* TODO: 検索URLをユーザが設定できるようにする */}
+            <a className="search-button"
+                href={"https://www.google.com/search?q=" + currentQ.word}
+                target="_blank"
+                title={`"${currentQ.word}" をWeb検索`}>
+                <button>
+                    🔍
+                </button>
+            </a>
+        </div>
 
         <ul style={{ listStyle: "none", padding: 0 }}>
             {currentQ.choices.map((choice, i) => {
