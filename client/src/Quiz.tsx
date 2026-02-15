@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { api } from './API';
 import { useEffect, useState } from 'react';
 import "./Quiz.css";
+import { useSpeech } from './speech';
 
 type Question = {
     word: string;
@@ -50,6 +51,15 @@ export function Quiz() {
             });
     }, [reloadCount, level, k]);
 
+    // 単語が新しくなると再生する
+    const { speak } = useSpeech();
+    useEffect(() => {
+        if (currentQ?.word) {
+            speak(currentQ.word);
+        }
+    }, [speak, currentQ]);
+
+
     // 問題の取得が終わるまでローディング画面
     if (questions.length === 0) {
         return <p>Loading...</p>;
@@ -57,23 +67,23 @@ export function Quiz() {
 
     // 結果表示画面
     if (currentIndex == questions.length) {
-        return (<div className='quiz'>
-            <h2>結果</h2>
-
+        return (<div className='quiz-result'>
             <table>
                 <thead>
                     <tr>
+                        <th className="col-mark">正誤</th>
                         <th className="col-word">単語</th>
                         <th className="col-meaning">意味</th>
-                        <th className="col-mark">正誤</th>
                     </tr>
                 </thead>
                 <tbody>
                     {[...Array(k).keys()].map(i => (
                         <tr key={i}>
+                            <td className={`col-mark ${answers[i] == questions[i].correct ? "correct-cell" : "incorrect-cell"}`}>
+                                {answers[i] == questions[i].correct ? "〇" : "✖"}
+                            </td>
                             <td className="col-word">{questions[i].word}</td>
                             <td className="col-meaning">{questions[i].choices[questions[i].correct]}</td>
-                            <td className="col-mark">{answers[i] == questions[i].correct ? "〇" : "✖"}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -94,12 +104,7 @@ export function Quiz() {
         <div className='quiz-header'>
             {/* 音声読み上げボタン */}
             <button className='speak-button'
-                onClick={() => {
-                    const utterance = new SpeechSynthesisUtterance(currentQ.word);
-                    // 日本語で読み上げ（必要に応じて）
-                    utterance.lang = 'en-US';
-                    speechSynthesis.speak(utterance);
-                }}
+                onClick={() => { speak(currentQ.word) }}
                 title="音声を再生"
             >🔊</button>
 
@@ -108,7 +113,7 @@ export function Quiz() {
             {/* 検索ボタン */}
             {/* TODO: 検索URLをユーザが設定できるようにする */}
             <a className="search-button"
-                href={"https://www.google.com/search?q=" + currentQ.word}
+                href={"https://eow.alc.co.jp/search?q=" + currentQ.word}
                 target="_blank"
                 title={`"${currentQ.word}" をWeb検索`}>
                 🔍</a>
