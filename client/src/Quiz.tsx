@@ -78,7 +78,11 @@ export function Quiz() {
                 </thead>
                 <tbody>
                     {[...Array(k).keys()].map(i => (
-                        <tr key={i}>
+                        // 行はクリック可能
+                        // TODO: 「問題を出す画面」と「一つの単語を閲覧する画面」を分ける？
+                        <tr className="result-row"
+                            key={i}
+                            onClick={() => speak(questions[i].word)}>
                             <td className={`col-mark ${answers[i] == questions[i].correct ? "correct-cell" : "incorrect-cell"}`}>
                                 {answers[i] == questions[i].correct ? "〇" : "✖"}
                             </td>

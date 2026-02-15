@@ -17,7 +17,7 @@
 .quiz-header {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     /* 画面が狭まったときも、最低1emはギャップを取る */
     gap: 1em;
     max-width: 280px;
@@ -132,3 +132,36 @@ td.col-mark {
 .col-meaning {
     text-align: left;
 }
+
+/* 行をクリック可能に見せる */
+.result-row {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #ebd9a9;
+    }
+}
+
+/* スピーカーアイコン */
+/* .col-word {
+    position: relative;
+    padding-right: 1.5em;
+    アイコン用スペースを確保
+}
+.result-row .col-word::after {
+    content: "🔊";
+    position: absolute;
+    right: 0.3em;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.result-row:hover .col-word::after {
+    opacity: 1;
+}
+@media (hover: none) {
+    .result-row .col-word::after {
+        opacity: 1;
+    }
+} */
