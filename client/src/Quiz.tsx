@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { api } from './API';
 import { useEffect, useState } from 'react';
 import "./Quiz.css";
+import { useSpeech } from './speech';
 
 type Question = {
     word: string;
@@ -50,6 +51,15 @@ export function Quiz() {
             });
     }, [reloadCount, level, k]);
 
+    // 単語が新しくなると再生する
+    const { speak } = useSpeech();
+    useEffect(() => {
+        if (currentQ?.word) {
+            speak(currentQ.word);
+        }
+    }, [speak, currentQ]);
+
+
     // 問題の取得が終わるまでローディング画面
     if (questions.length === 0) {
         return <p>Loading...</p>;
@@ -94,12 +104,7 @@ export function Quiz() {
         <div className='quiz-header'>
             {/* 音声読み上げボタン */}
             <button className='speak-button'
-                onClick={() => {
-                    const utterance = new SpeechSynthesisUtterance(currentQ.word);
-                    // 日本語で読み上げ（必要に応じて）
-                    utterance.lang = 'en-US';
-                    speechSynthesis.speak(utterance);
-                }}
+                onClick={() => { speak(currentQ.word) }}
                 title="音声を再生"
             >🔊</button>
 
