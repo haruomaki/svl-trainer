@@ -1,11 +1,10 @@
 /* クイズコンテナ */
 .quiz {
-    /* 左右中央寄せ。幅 = min(560px, 画面幅) */
+    /* 上下左右中央寄せ。幅 = min(560px, 画面幅) */
     /* ※ 幅はパディングを含む */
     box-sizing: border-box;
     max-width: 560px;
     width: 100%;
-    margin: auto;
     padding: 8px;
 }
 
@@ -97,6 +96,7 @@ li {
 /* 結果の表 */
 /* ----------------- */
 
+/* クイズ結果コンテナ */
 .quiz-result {
     .navi-button {
         /* 「次の10問へ」ボタンの上下 */

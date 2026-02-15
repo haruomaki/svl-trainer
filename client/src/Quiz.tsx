@@ -67,7 +67,7 @@ export function Quiz() {
 
     // 結果表示画面
     if (currentIndex == questions.length) {
-        return (<div className='quiz-result'>
+        return (<div className='centered-page'><div className='quiz-result'>
             <table>
                 <thead>
                     <tr>
@@ -92,11 +92,11 @@ export function Quiz() {
             <button className="navi-button" onClick={() => setReloadCount(c => c + 1)}>
                 次の{k}問へ
             </button>
-        </div>)
+        </div></div>)
     }
 
     // 出題画面
-    return (<div className='quiz'>
+    return (<div className='centered-page'><div className='quiz'>
         <h3>
             問題 {currentIndex + 1} / {questions.length}
         </h3>
@@ -153,5 +153,5 @@ export function Quiz() {
         }}>
             {(currentIndex == questions.length - 1) ? "結果を見る" : "次へ"}
         </button>
-    </div>);
+    </div></div>);
 }
