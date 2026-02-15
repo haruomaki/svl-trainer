@@ -57,7 +57,7 @@ export function Quiz() {
 
     // 結果表示画面
     if (currentIndex == questions.length) {
-        return (<div className='quiz'>
+        return (<div className='quiz-result'>
             <h2>結果</h2>
 
             <table>
@@ -108,7 +108,7 @@ export function Quiz() {
             {/* 検索ボタン */}
             {/* TODO: 検索URLをユーザが設定できるようにする */}
             <a className="search-button"
-                href={"https://www.google.com/search?q=" + currentQ.word}
+                href={"https://eow.alc.co.jp/search?q=" + currentQ.word}
                 target="_blank"
                 title={`"${currentQ.word}" をWeb検索`}>
                 🔍</a>

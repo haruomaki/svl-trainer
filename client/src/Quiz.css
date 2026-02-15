@@ -2,6 +2,9 @@
 .quiz {
     max-width: 560px;
     width: 100%;
+
+    /* 選択肢の左右に余白 */
+    margin: 8px;
 }
 
 /* 出題部 */
@@ -90,6 +93,11 @@ li {
 /* ----------------- */
 /* 結果の表 */
 /* ----------------- */
+
+.quiz-result {
+    /* 「次の10問へ」ボタンの下の隙間 */
+    margin-bottom: 8px;
+}
 
 .col-word,
 .col-meaning {
