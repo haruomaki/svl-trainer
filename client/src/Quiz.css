@@ -4,6 +4,7 @@
     /* ※ 幅はパディングを含む */
     box-sizing: border-box;
     max-width: 560px;
+    min-width: 0;
     width: 100%;
     padding: 8px;
 }
@@ -48,23 +49,21 @@
 
 /* 4つの選択肢 */
 li {
-    /* liのボーダーは消し、buttonで埋め尽くされるようにする */
-    padding: 0;
-    background: none;
-    border: none;
-
     button {
-        display: inline-block;
-        min-width: 0;
+        /* ボタンの高さを固定し、中でテキストが改行される */
+        display: flex;
+        align-items: center;
+        height: 60px;
         width: 100%;
-        margin: 5px 0;
-        padding: 15px 20px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background: none;
+
+        margin: 8px 0;
+        background-color: transparent;
+
+        /* テキストは左寄せ・2行まで（未実装） */
         text-align: left;
-        font-size: 16px;
-        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-clamp: 2;
 
         &:hover {
             /* ホバーで色変更 */
