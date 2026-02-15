@@ -8,6 +8,11 @@
     padding: 8px;
 }
 
+/* ステータス表示 */
+.quiz-status {
+    font-weight: bold;
+}
+
 /* 出題部 */
 .quiz-header {
     display: flex;

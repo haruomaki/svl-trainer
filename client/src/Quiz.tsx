@@ -97,7 +97,7 @@ export function Quiz() {
 
     // 出題画面
     return (<div className='centered-page'><div className='quiz'>
-        <h4>Level {level} &emsp; 問題 {currentIndex + 1} / {questions.length}</h4>
+        <p className="quiz-status">Level {level} &emsp; 問題 {currentIndex + 1} / {questions.length}</p>
 
         {/* TODO: ヘッダーが長すぎる時のセンタリングがおかしい */}
         <div className='quiz-header'>
