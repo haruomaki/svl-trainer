@@ -9,5 +9,15 @@ export default defineConfig(({ mode }) => {
   return {
     base: env.VITE_BASE,
     plugins: [react()],
+    server: {
+      host: true, // ネットワーク越しにアクセス可能にする
+      proxy: { // スマホからAPIサーバにアクセスできるように
+        "/api": {
+          target: "http://localhost:12000",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "")
+        }
+      }
+    },
   };
 });
