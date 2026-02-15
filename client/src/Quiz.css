@@ -106,11 +106,6 @@ li {
     }
 }
 
-.col-word,
-.col-meaning {
-    text-align: left;
-}
-
 td.col-mark {
     color: white;
     font-weight: bold;
@@ -122,4 +117,13 @@ td.col-mark {
 
 .incorrect-cell {
     background-color: var(--color-error);
+}
+
+.col-word {
+    text-align: left;
+    font-weight: bold;
+}
+
+.col-meaning {
+    text-align: left;
 }

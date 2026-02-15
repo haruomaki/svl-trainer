@@ -97,10 +97,9 @@ export function Quiz() {
 
     // 出題画面
     return (<div className='centered-page'><div className='quiz'>
-        <h3>
-            問題 {currentIndex + 1} / {questions.length}
-        </h3>
+        <h4>Level {level} &emsp; 問題 {currentIndex + 1} / {questions.length}</h4>
 
+        {/* TODO: ヘッダーが長すぎる時のセンタリングがおかしい */}
         <div className='quiz-header'>
             {/* 音声読み上げボタン */}
             <button className='speak-button'
@@ -108,7 +107,7 @@ export function Quiz() {
                 title="音声を再生"
             >🔊</button>
 
-            <h2 className='quiz-word'>{currentQ.word}</h2>
+            <h1 className='quiz-word'>{currentQ.word}</h1>
 
             {/* 検索ボタン */}
             {/* TODO: 検索URLをユーザが設定できるようにする */}
