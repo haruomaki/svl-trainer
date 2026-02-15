@@ -24,12 +24,6 @@ body {
   /* スクロールバーを消すために余計な余白を除去 */
   margin: 0;
 
-  /* 上下左右中央揃え */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   /* 各要素は基本的に中央揃え */
   text-align: center;
 }
