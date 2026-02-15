@@ -78,7 +78,6 @@ button:focus-visible {
 
 /* 一般的な表 */
 table {
-  margin: 20px auto;
   /* 罫線を消す */
   border-collapse: collapse;
 }

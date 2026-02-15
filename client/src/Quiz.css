@@ -95,8 +95,10 @@ li {
 /* ----------------- */
 
 .quiz-result {
-    /* 「次の10問へ」ボタンの下の隙間 */
-    margin-bottom: 8px;
+    .navi-button {
+        /* 「次の10問へ」ボタンの上下 */
+        margin: 10px auto;
+    }
 }
 
 .col-word,
