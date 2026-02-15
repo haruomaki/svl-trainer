@@ -72,13 +72,13 @@ li {
 
         /* 正解の選択肢 */
         &.correct {
-            background-color: rgb(115, 211, 115);
+            background-color: var(--color-success);
             color: white;
         }
 
         /* 間違った選択肢 */
         &.wrong {
-            background-color: rgb(231, 97, 108);
+            background-color: var(--color-error);
             color: white;
         }
     }
@@ -102,4 +102,17 @@ li {
 .col-word,
 .col-meaning {
     text-align: left;
+}
+
+td.col-mark {
+    color: white;
+    font-weight: bold;
+}
+
+.correct-cell {
+    background-color: var(--color-success);
+}
+
+.incorrect-cell {
+    background-color: var(--color-error);
 }

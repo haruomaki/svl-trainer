@@ -14,6 +14,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* 基本カラーパレット */
+  --color-success: rgb(115, 211, 115);
+  --color-error: rgb(231, 97, 108);
 }
 
 body {

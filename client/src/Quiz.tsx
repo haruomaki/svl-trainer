@@ -68,22 +68,22 @@ export function Quiz() {
     // 結果表示画面
     if (currentIndex == questions.length) {
         return (<div className='quiz-result'>
-            <h2>結果</h2>
-
             <table>
                 <thead>
                     <tr>
+                        <th className="col-mark">正誤</th>
                         <th className="col-word">単語</th>
                         <th className="col-meaning">意味</th>
-                        <th className="col-mark">正誤</th>
                     </tr>
                 </thead>
                 <tbody>
                     {[...Array(k).keys()].map(i => (
                         <tr key={i}>
+                            <td className={`col-mark ${answers[i] == questions[i].correct ? "correct-cell" : "incorrect-cell"}`}>
+                                {answers[i] == questions[i].correct ? "〇" : "✖"}
+                            </td>
                             <td className="col-word">{questions[i].word}</td>
                             <td className="col-meaning">{questions[i].choices[questions[i].correct]}</td>
-                            <td className="col-mark">{answers[i] == questions[i].correct ? "〇" : "✖"}</td>
                         </tr>
                     ))}
                 </tbody>
