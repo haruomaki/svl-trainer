@@ -90,6 +90,8 @@ li {
 .navi-button {
     margin-right: 0.5em;
     margin-left: 0.5em;
+    /* デカくする */
+    padding: 30px 40px;
 }
 
 /* ----------------- */

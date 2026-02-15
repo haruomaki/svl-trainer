@@ -151,7 +151,7 @@ export function Quiz() {
             // 次の問題へ進む
             setCurrentIndex(currentIndex + 1);
         }}>
-            {(currentIndex == questions.length - 1) ? "結果を見る" : "次へ"}
+            次へ
         </button>
     </div></div>);
 }

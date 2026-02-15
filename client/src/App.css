@@ -62,7 +62,7 @@ a:hover {
 /* 一般的なボタン */
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #ccc;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -111,13 +111,12 @@ tr:nth-child(even) {
 /* 「戻る」ボタン */
 .back-button {
   position: fixed;
-  bottom: 20px;
+  top: 20px;
   right: 20px;
-  padding: 12px 24px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  padding: 6px 12px;
+  background-color: #f0f0f088;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
 
   /* 他の要素より前に */
