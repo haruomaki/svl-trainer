@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import './App.css'
 import { Quiz } from './Quiz';
 import { api } from './API';
+import Hub from './Hub';
 
 type Word = {
   en: string
@@ -27,7 +28,7 @@ export default function App() {
   return (
     <Router basename={import.meta.env.BASE_URL}>
       <Routes>
-        <Route path="/" element={<Title />} />
+        <Route path="/" element={<Hub />} />
         <Route path="/quiz" element={<>
           <Quiz />
           <Link to="/">
