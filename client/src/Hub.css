@@ -1,10 +1,12 @@
 .level-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .level-card {
@@ -16,7 +18,7 @@
     color: white;
     text-decoration: none;
     border-radius: 12px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -25,4 +27,17 @@
 .level-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .level-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .level-card {
+        font-size: 1rem;
+    }
 }
