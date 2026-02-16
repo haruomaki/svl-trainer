@@ -24,12 +24,6 @@ body {
   /* スクロールバーを消すために余計な余白を除去 */
   margin: 0;
 
-  /* 上下左右中央揃え */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   /* 各要素は基本的に中央揃え */
   text-align: center;
 }
@@ -37,6 +31,17 @@ body {
 #root {
   /* Reactルートのdiv要素をレイアウト計算から完全に除外する */
   display: contents;
+}
+
+/*  ----------------------- */
+/* ユーティリティ */
+/*  ----------------------- */
+
+/* 上下中央寄せするための、画面全体を覆うレイアウトコンテナ（dvhでスマホ対応） */
+.centered-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
 }
 
 /*  ----------------------- */
@@ -57,7 +62,7 @@ a:hover {
 /* 一般的なボタン */
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #ccc;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -78,7 +83,6 @@ button:focus-visible {
 
 /* 一般的な表 */
 table {
-  margin: 20px auto;
   /* 罫線を消す */
   border-collapse: collapse;
 }
@@ -107,13 +111,12 @@ tr:nth-child(even) {
 /* 「戻る」ボタン */
 .back-button {
   position: fixed;
-  bottom: 20px;
+  top: 20px;
   right: 20px;
-  padding: 12px 24px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  padding: 6px 12px;
+  background-color: #f0f0f088;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
 
   /* 他の要素より前に */

@@ -1,17 +1,24 @@
 /* クイズコンテナ */
 .quiz {
+    /* 上下左右中央寄せ。幅 = min(560px, 画面幅) */
+    /* ※ 幅はパディングを含む */
+    box-sizing: border-box;
     max-width: 560px;
+    min-width: 0;
     width: 100%;
+    padding: 8px;
+}
 
-    /* 選択肢の左右に余白 */
-    margin: 8px;
+/* ステータス表示 */
+.quiz-status {
+    font-weight: bold;
 }
 
 /* 出題部 */
 .quiz-header {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     /* 画面が狭まったときも、最低1emはギャップを取る */
     gap: 1em;
     max-width: 280px;
@@ -42,22 +49,21 @@
 
 /* 4つの選択肢 */
 li {
-    /* liのボーダーは消し、buttonで埋め尽くされるようにする */
-    padding: 0;
-    background: none;
-    border: none;
-
     button {
-        min-width: 0;
+        /* ボタンの高さを固定し、中でテキストが改行される */
+        display: flex;
+        align-items: center;
+        height: 60px;
         width: 100%;
-        margin: 5px 0;
-        padding: 15px 20px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background: none;
+
+        margin: 8px 0;
+        background-color: transparent;
+
+        /* テキストは左寄せ・2行まで（未実装） */
         text-align: left;
-        font-size: 16px;
-        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-clamp: 2;
 
         &:hover {
             /* ホバーで色変更 */
@@ -88,20 +94,20 @@ li {
 .navi-button {
     margin-right: 0.5em;
     margin-left: 0.5em;
+    /* デカくする */
+    padding: 30px 40px;
 }
 
 /* ----------------- */
 /* 結果の表 */
 /* ----------------- */
 
+/* クイズ結果コンテナ */
 .quiz-result {
-    /* 「次の10問へ」ボタンの下の隙間 */
-    margin-bottom: 8px;
-}
-
-.col-word,
-.col-meaning {
-    text-align: left;
+    .navi-button {
+        /* 「次の10問へ」ボタンの上下 */
+        margin: 10px auto;
+    }
 }
 
 td.col-mark {
@@ -116,3 +122,45 @@ td.col-mark {
 .incorrect-cell {
     background-color: var(--color-error);
 }
+
+.col-word {
+    text-align: left;
+    font-weight: bold;
+}
+
+.col-meaning {
+    text-align: left;
+}
+
+/* 行をクリック可能に見せる */
+.result-row {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #ebd9a9;
+    }
+}
+
+/* スピーカーアイコン */
+/* .col-word {
+    position: relative;
+    padding-right: 1.5em;
+    アイコン用スペースを確保
+}
+.result-row .col-word::after {
+    content: "🔊";
+    position: absolute;
+    right: 0.3em;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.result-row:hover .col-word::after {
+    opacity: 1;
+}
+@media (hover: none) {
+    .result-row .col-word::after {
+        opacity: 1;
+    }
+} */
