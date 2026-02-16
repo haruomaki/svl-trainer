@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { api } from './API';
 import { useEffect, useState } from 'react';
 import "./Quiz.css";
+import { useSpeech } from './speech';
 
 type Question = {
     word: string;
@@ -50,6 +51,15 @@ export function Quiz() {
             });
     }, [reloadCount, level, k]);
 
+    // 単語が新しくなると再生する
+    const { speak } = useSpeech();
+    useEffect(() => {
+        if (currentQ?.word) {
+            speak(currentQ.word);
+        }
+    }, [speak, currentQ]);
+
+
     // 問題の取得が終わるまでローディング画面
     if (questions.length === 0) {
         return <p>Loading...</p>;
@@ -57,23 +67,27 @@ export function Quiz() {
 
     // 結果表示画面
     if (currentIndex == questions.length) {
-        return (<div className='quiz'>
-            <h2>結果</h2>
-
+        return (<div className='centered-page'><div className='quiz-result'>
             <table>
                 <thead>
                     <tr>
+                        <th className="col-mark">正誤</th>
                         <th className="col-word">単語</th>
                         <th className="col-meaning">意味</th>
-                        <th className="col-mark">正誤</th>
                     </tr>
                 </thead>
                 <tbody>
                     {[...Array(k).keys()].map(i => (
-                        <tr key={i}>
+                        // 行はクリック可能
+                        // TODO: 「問題を出す画面」と「一つの単語を閲覧する画面」を分ける？
+                        <tr className="result-row"
+                            key={i}
+                            onClick={() => speak(questions[i].word)}>
+                            <td className={`col-mark ${answers[i] == questions[i].correct ? "correct-cell" : "incorrect-cell"}`}>
+                                {answers[i] == questions[i].correct ? "〇" : "✖"}
+                            </td>
                             <td className="col-word">{questions[i].word}</td>
                             <td className="col-meaning">{questions[i].choices[questions[i].correct]}</td>
-                            <td className="col-mark">{answers[i] == questions[i].correct ? "〇" : "✖"}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -82,33 +96,27 @@ export function Quiz() {
             <button className="navi-button" onClick={() => setReloadCount(c => c + 1)}>
                 次の{k}問へ
             </button>
-        </div>)
+        </div></div>)
     }
 
     // 出題画面
-    return (<div className='quiz'>
-        <h3>
-            問題 {currentIndex + 1} / {questions.length}
-        </h3>
+    return (<div className='centered-page'><div className='quiz'>
+        <p className="quiz-status">Level {level} &emsp; 問題 {currentIndex + 1} / {questions.length}</p>
 
+        {/* TODO: ヘッダーが長すぎる時のセンタリングがおかしい */}
         <div className='quiz-header'>
             {/* 音声読み上げボタン */}
             <button className='speak-button'
-                onClick={() => {
-                    const utterance = new SpeechSynthesisUtterance(currentQ.word);
-                    // 日本語で読み上げ（必要に応じて）
-                    utterance.lang = 'en-US';
-                    speechSynthesis.speak(utterance);
-                }}
+                onClick={() => { speak(currentQ.word) }}
                 title="音声を再生"
             >🔊</button>
 
-            <h2 className='quiz-word'>{currentQ.word}</h2>
+            <h1 className='quiz-word'>{currentQ.word}</h1>
 
             {/* 検索ボタン */}
             {/* TODO: 検索URLをユーザが設定できるようにする */}
             <a className="search-button"
-                href={"https://www.google.com/search?q=" + currentQ.word}
+                href={"https://eow.alc.co.jp/search?q=" + currentQ.word}
                 target="_blank"
                 title={`"${currentQ.word}" をWeb検索`}>
                 🔍</a>
@@ -146,7 +154,7 @@ export function Quiz() {
             // 次の問題へ進む
             setCurrentIndex(currentIndex + 1);
         }}>
-            {(currentIndex == questions.length - 1) ? "結果を見る" : "次へ"}
+            次へ
         </button>
-    </div>);
+    </div></div>);
 }
